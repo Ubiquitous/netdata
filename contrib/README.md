@@ -35,8 +35,18 @@ updates first.
 * edit `contrib/debian/rules` and adjust the `dh` rule near the
   top to remove systemd (see comments in that file).
 
-* edit `contrib/debian/control`: remove `dh-systemd` from the
-  Build-Depends list, and add `pkg-config` to it.
+* rename `contrib/debian/control.wheezy` to `contrib/debian/control`.
+
+* change `control.wheezy from contrib/Makefile* to control`.
+
+* uncomment `EXTRA_OPTS="-P /var/run/netdata.pid"` in
+ `contrib/debian/netdata.default`
+
+* edit `contrib/debian/netdata.init` and change `PIDFILE` to
+  `/var/run/netdata.pid`
+
+* remove `dpkg-statoverride --update --add --force root netdata 0775 /var/lib/netdata/registry` from
+  `contrib/debian/netdata.postinst.in`. If you are going to handle the unique id file differently.
 
 Then proceed as the main instructions above.
 
@@ -47,3 +57,4 @@ source is to remove the current package from your system, then
 install the new package. Upgrading on wheezy is known to not
 work cleanly; Jessie may behave as expected.
 
+[![analytics](https://www.google-analytics.com/collect?v=1&aip=1&t=pageview&_s=1&ds=github&dr=https%3A%2F%2Fgithub.com%2Fnetdata%2Fnetdata&dl=https%3A%2F%2Fmy-netdata.io%2Fgithub%2Fcontrib%2FREADME&_u=MAC~&cid=5792dfd7-8dc4-476b-af31-da2fdb9f93d2&tid=UA-64295674-3)]()
